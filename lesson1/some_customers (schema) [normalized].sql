@@ -95,12 +95,18 @@ CREATE TABLE `person_title` (
 
 CREATE TABLE `person_title_localized` (
   `key` varchar(255) NOT NULL COMMENT 'Person title key link',
+  `language_name` varchar(255) NOT NULL COMMENT 'Language link',
   `localized_title` varchar(255) NOT NULL,
 
-  PRIMARY KEY (`key`, `localized_title`),
+  PRIMARY KEY (`key`, `language_name`),
   FOREIGN KEY 
     fk_person_title_localized_key (`key`)
     REFERENCES `person_title` (`key`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+  FOREIGN KEY 
+    fk_person_title_localized_language_name (`language_name`)
+    REFERENCES `language` (`name`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
